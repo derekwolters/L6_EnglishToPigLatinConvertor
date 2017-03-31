@@ -1,0 +1,1 @@
+c:\users\derek\documents\visual studio 2015\Projects\L6_EnglishToPigLatinTranslator\L6_EnglishToPigLatinTranslator\bin\Debug\L6_EnglishToPigLatinTranslator.exe.config
