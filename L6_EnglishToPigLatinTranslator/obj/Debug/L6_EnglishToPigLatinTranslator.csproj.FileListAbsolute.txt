@@ -1,1 +1,6 @@
 c:\users\derek\documents\visual studio 2015\Projects\L6_EnglishToPigLatinTranslator\L6_EnglishToPigLatinTranslator\bin\Debug\L6_EnglishToPigLatinTranslator.exe.config
+c:\users\derek\documents\visual studio 2015\Projects\L6_EnglishToPigLatinTranslator\L6_EnglishToPigLatinTranslator\obj\Debug\L6_EnglishToPigLatinTranslator.csprojResolveAssemblyReference.cache
+c:\users\derek\documents\visual studio 2015\Projects\L6_EnglishToPigLatinTranslator\L6_EnglishToPigLatinTranslator\bin\Debug\L6_EnglishToPigLatinTranslator.exe
+c:\users\derek\documents\visual studio 2015\Projects\L6_EnglishToPigLatinTranslator\L6_EnglishToPigLatinTranslator\bin\Debug\L6_EnglishToPigLatinTranslator.pdb
+c:\users\derek\documents\visual studio 2015\Projects\L6_EnglishToPigLatinTranslator\L6_EnglishToPigLatinTranslator\obj\Debug\L6_EnglishToPigLatinTranslator.exe
+c:\users\derek\documents\visual studio 2015\Projects\L6_EnglishToPigLatinTranslator\L6_EnglishToPigLatinTranslator\obj\Debug\L6_EnglishToPigLatinTranslator.pdb
