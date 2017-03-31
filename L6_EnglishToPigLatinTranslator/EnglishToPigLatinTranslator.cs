@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace L6_EnglishToPigLatinTranslator
 {
@@ -34,27 +30,19 @@ namespace L6_EnglishToPigLatinTranslator
             }
         }
 
-        public static int GetInput()
+        public static String GetInput()
         {
             string input = "";
-            int temp;
-
+           
             input = Console.ReadLine();
 
-            if (!int.TryParse(input, out temp))
-            {
-                //check that input is an integer & ask for reentry if not
-                Console.WriteLine("Input should be a whole number. " +
-                    "Try again.");
+            //check that there is actually some input
+            if (input == "")
+            {                
+                Console.WriteLine("You need to enter a word or phrase!");
                 return GetInput();
             }
-            else if (temp < minNum || temp > maxNum)
-            {
-                //check that input is withing range & ask for reentry if not
-                Console.WriteLine("Input should between 1 and 100");
-                return GetInput();
-            }
-            else { return temp; }
+            else { return input; }
         }
 
         public static string ConvertInput()
