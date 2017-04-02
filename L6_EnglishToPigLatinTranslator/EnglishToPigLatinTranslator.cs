@@ -50,7 +50,7 @@ namespace L6_EnglishToPigLatinTranslator
         {
             string[] words = Regex.Split(phrase, "\\s");
             string[] vowel = {
-                "a", "e", "i", "o", "u" , "A", "E", "I", "O", "U"
+                "e", "a", "o", "i", "u" , "E", "A", "O", "I", "U"
             };
             string[] consonant = {
                "t" , "n" , "s" , "r" , "h" , "l" , "d" , "c" , "m" , "f" , "p" ,
@@ -58,6 +58,8 @@ namespace L6_EnglishToPigLatinTranslator
                "T" , "N" , "S" , "R" , "H" , "L" , "D" , "C" , "M" , "F" , "P" ,
                "G" , "W" , "Y" , "B" , "V" , "K" , "X" , "J" , "Q" , "Z"
             };
+            int firstVowel = 0;
+            string moveLetters = "";
 
             for (int i = 0; i < words.Length; i++)
             {
@@ -68,45 +70,31 @@ namespace L6_EnglishToPigLatinTranslator
                     //check for words starting with vowel
                     if (words[i].Substring(0, 1).Contains(v))
                     {
-                        Console.WriteLine("before:" + words[i]);
                         words[i] = words[i] + "way";
-                        Console.WriteLine("after:" + words[i]);
                     }
                 }
                 //check for words starting with consanant
                 foreach (string c in consonant)
-                {
-                    
+                {                    
                     if (words[i].Substring(0, 1).Contains(c))
                     {
                         Console.WriteLine("before:" + words[i]);
-                        words[i] = words[i] + "way";
+
+                        foreach (string v in vowel)
+                        {
+                            if (words[i].Contains(v))
+                            {
+                                firstVowel = words[i].IndexOf(v);
+                                moveLetters = words[i].Substring(0, firstVowel);
+                                words[i] = words[i].Remove(0,firstVowel);
+                                words[i] = words[i] + moveLetters;
+                            }
+                        }
+                        words[i] = words[i] + "ay";
                         Console.WriteLine("after:" + words[i]);
-                    }
-                        
-                   
+                    }        
                 }
             }
-            
-            //foreach (string word in words)
-            //{
-            //    Console.WriteLine("1st foreach: " + word);
-            //    foreach (string x in vowels)
-            //    {
-            //        Console.WriteLine("vowel:" + x);
-            //        Console.WriteLine("2nd foreach: " + word);
-            //        Console.WriteLine("substring: " + word.Substring(0, 1));
-            //        if (word.Substring(0,1).Contains(x))
-            //        {                        
-            //            Console.WriteLine("before:" + word);
-            //            word.Replace(word , word + "way");
-            //            Console.WriteLine("after:" + word);
-            //        }
-            //    }
-            //}
-
-            
-
             return phrase;
         }
 
