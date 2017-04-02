@@ -35,7 +35,7 @@ namespace L6_EnglishToPigLatinTranslator
         {
             string input = "";
 
-            Console.WriteLine("Enter a word of phrase:");
+            Console.WriteLine("Enter a word or phrase:");
             input = Console.ReadLine();
 
             //check that there is actually some input
@@ -49,20 +49,42 @@ namespace L6_EnglishToPigLatinTranslator
         public static string ConvertInput(string phrase)
         {
             string[] words = Regex.Split(phrase, "\\s");
-            string[] vowels = { "a", "e", "i", "o", "u" +
-                                "A", "E", "I", "O", "U" };
+            string[] vowel = {
+                "a", "e", "i", "o", "u" , "A", "E", "I", "O", "U"
+            };
+            string[] consonant = {
+               "t" , "n" , "s" , "r" , "h" , "l" , "d" , "c" , "m" , "f" , "p" ,
+               "g" , "w" , "y" , "b" , "v" , "k" , "x" , "j" , "q" , "z" ,
+               "T" , "N" , "S" , "R" , "H" , "L" , "D" , "C" , "M" , "F" , "P" ,
+               "G" , "W" , "Y" , "B" , "V" , "K" , "X" , "J" , "Q" , "Z"
+            };
 
-            for(int i = 0; i < words.Length; i++)
+            for (int i = 0; i < words.Length; i++)
             {
                 Console.WriteLine("array:" + words[i]);
-                foreach (string x in vowels)
+                //check for words starting with vowel
+                foreach (string v in vowel)
                 {
-                    if (words[i].Substring(0, 1).Contains(x))
+                    //check for words starting with vowel
+                    if (words[i].Substring(0, 1).Contains(v))
                     {
                         Console.WriteLine("before:" + words[i]);
                         words[i] = words[i] + "way";
                         Console.WriteLine("after:" + words[i]);
                     }
+                }
+                //check for words starting with consanant
+                foreach (string c in consonant)
+                {
+                    
+                    if (words[i].Substring(0, 1).Contains(c))
+                    {
+                        Console.WriteLine("before:" + words[i]);
+                        words[i] = words[i] + "way";
+                        Console.WriteLine("after:" + words[i]);
+                    }
+                        
+                   
                 }
             }
             
