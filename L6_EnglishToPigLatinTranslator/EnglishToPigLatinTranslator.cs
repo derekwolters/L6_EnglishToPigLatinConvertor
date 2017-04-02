@@ -19,7 +19,9 @@ namespace L6_EnglishToPigLatinTranslator
                 //int randNum = genRandNum();
 
                 //get input, calculate and display the results
-                ConvertInput(GetInput());
+                Console.WriteLine(ConvertInput(GetInput()));
+
+                
 
                 //exit program               
                 if (ExitProgram())
@@ -49,23 +51,40 @@ namespace L6_EnglishToPigLatinTranslator
         public static string ConvertInput(string phrase)
         {
             string[] words = Regex.Split(phrase, "\\s");
-            string[] vowel = {
+            string[] vowels = {
                 "e", "a", "o", "i", "u" , "E", "A", "O", "I", "U"
             };
-            string[] consonant = {
+            string[] consonants = {
                "t" , "n" , "s" , "r" , "h" , "l" , "d" , "c" , "m" , "f" , "p" ,
                "g" , "w" , "y" , "b" , "v" , "k" , "x" , "j" , "q" , "z" ,
                "T" , "N" , "S" , "R" , "H" , "L" , "D" , "C" , "M" , "F" , "P" ,
                "G" , "W" , "Y" , "B" , "V" , "K" , "X" , "J" , "Q" , "Z"
             };
+            string[] numschars =
+            {
+                "0" , "1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" ,
+                "$" , "+" , "@" , "-"
+            };
+            
             int firstVowel = 0;
             string moveLetters = "";
 
+            //check if words contain a number or character
             for (int i = 0; i < words.Length; i++)
             {
-                Console.WriteLine("array:" + words[i]);
+                //check if words contain a number or character
+                foreach (string n in numschars)
+                {
+                    //check for words starting with vowel
+                    if (words[i].Contains(n))
+                    {
+                        i++;
+                        continue;
+                    }
+                }
+
                 //check for words starting with vowel
-                foreach (string v in vowel)
+                foreach (string v in vowels)
                 {
                     //check for words starting with vowel
                     if (words[i].Substring(0, 1).Contains(v))
@@ -73,14 +92,13 @@ namespace L6_EnglishToPigLatinTranslator
                         words[i] = words[i] + "way";
                     }
                 }
+                
                 //check for words starting with consanant
-                foreach (string c in consonant)
+                foreach (string c in consonants)
                 {                    
                     if (words[i].Substring(0, 1).Contains(c))
                     {
-                        Console.WriteLine("before:" + words[i]);
-
-                        foreach (string v in vowel)
+                        foreach (string v in vowels)
                         {
                             if (words[i].Contains(v))
                             {
@@ -91,11 +109,12 @@ namespace L6_EnglishToPigLatinTranslator
                             }
                         }
                         words[i] = words[i] + "ay";
-                        Console.WriteLine("after:" + words[i]);
                     }        
                 }
+
+
             }
-            return phrase;
+            return string.Join(" ",words);
         }
 
         //exit the program when the user wants to
