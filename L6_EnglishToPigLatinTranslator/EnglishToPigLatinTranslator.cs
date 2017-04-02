@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 
 namespace L6_EnglishToPigLatinTranslator
 {
@@ -50,7 +49,8 @@ namespace L6_EnglishToPigLatinTranslator
 
         public static string ConvertInput(string phrase)
         {
-            string[] words = Regex.Split(phrase, "\\s");
+            //string[] words = Regex.Split(phrase, "\\s");
+            string[] words = phrase.Split(' ');
             string[] vowels = {
                 "e", "a", "o", "i", "u" , "E", "A", "O", "I", "U"
             };
@@ -90,6 +90,10 @@ namespace L6_EnglishToPigLatinTranslator
                     if (words[i].Substring(0, 1).Contains(v))
                     {
                         words[i] = words[i] + "way";
+                    }
+                    else
+                    {
+                        continue;
                     }
                 }
                 
