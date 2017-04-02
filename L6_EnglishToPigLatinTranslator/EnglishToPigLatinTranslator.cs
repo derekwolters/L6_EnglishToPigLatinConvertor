@@ -49,7 +49,6 @@ namespace L6_EnglishToPigLatinTranslator
 
         public static string ConvertInput(string phrase)
         {
-            //string[] words = Regex.Split(phrase, "\\s");
             string[] words = phrase.Split(' ');
             string[] vowels = {
                 "e", "a", "o", "i", "u" , "E", "A", "O", "I", "U"
@@ -65,8 +64,14 @@ namespace L6_EnglishToPigLatinTranslator
                 "0" , "1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" ,
                 "$" , "+" , "@" , "-"
             };
-            
-            int firstVowel = 0;
+
+            string[] punctuation =
+            {
+                "." , "!"                
+            };
+
+            int firstVowelLoc = 0;
+            int punctLoc = 0;
             string moveLetters = "";
 
             //check if words contain a number or character
@@ -90,6 +95,17 @@ namespace L6_EnglishToPigLatinTranslator
                     if (words[i].Substring(0, 1).Contains(v))
                     {
                         words[i] = words[i] + "way";
+                        
+                        foreach (string p in punctuation)
+                        {
+                            if (words[i].Contains(p))
+                            {
+                                punctLoc = words[i].IndexOf(p);
+                                moveLetters = words[i].Substring(punctLoc, 1);
+                                words[i] = words[i].Remove(punctLoc,1);
+                                words[i] = words[i] + moveLetters;
+                            }
+                        }                       
                     }
                     else
                     {
@@ -106,13 +122,24 @@ namespace L6_EnglishToPigLatinTranslator
                         {
                             if (words[i].Contains(v))
                             {
-                                firstVowel = words[i].IndexOf(v);
-                                moveLetters = words[i].Substring(0, firstVowel);
-                                words[i] = words[i].Remove(0,firstVowel);
+                                firstVowelLoc = words[i].IndexOf(v);
+                                moveLetters = words[i].Substring(0, firstVowelLoc);
+                                words[i] = words[i].Remove(0,firstVowelLoc);
                                 words[i] = words[i] + moveLetters;
                             }
                         }
                         words[i] = words[i] + "ay";
+
+                        foreach (string p in punctuation)
+                        {
+                            if (words[i].Contains(p))
+                            {
+                                punctLoc = words[i].IndexOf(p);
+                                moveLetters = words[i].Substring(punctLoc, 1);
+                                words[i] = words[i].Remove(punctLoc, 1);
+                                words[i] = words[i] + moveLetters;
+                            }
+                        }
                     }        
                 }
 
