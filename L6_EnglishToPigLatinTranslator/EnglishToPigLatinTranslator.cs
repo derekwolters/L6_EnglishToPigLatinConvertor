@@ -68,40 +68,29 @@ namespace L6_EnglishToPigLatinTranslator
             //loop though array of words
             for (int i = 0; i < words.Length; i++)
             {
-                //check if string contains a number or special character
                 if (!ContainsNumChar(words[i]))
                 {
-                    //check for words starting with vowel
-                    foreach (string v in vowels)
+                    if (BeginningContains(vowels, words[i]))
                     {
-                        //check for words starting with vowel
-                        if (words[i].Substring(0, 1).Contains(v))
-                        {
-                            words[i] = words[i] + "way";
-                            words[i] = MoveEndPunctuation(words[i]);
-                        }                        
+                        words[i] = words[i] + "way";
+                        words[i] = MoveEndPunctuation(words[i]);
                     }
-
-                    //check for words starting with consanant
-                    foreach (string c in consonants)
+                    else if (BeginningContains(consonants, words[i]))
                     {
-                        if (words[i].Substring(0, 1).Contains(c))
+                        foreach (string v in vowels)
                         {
-                            foreach (string v in vowels)
+                            if (words[i].Contains(v))
                             {
-                                if (words[i].Contains(v))
-                                {
-                                    firstVowelLoc = words[i].IndexOf(v);
-                                    moveLetters = words[i].Substring(0, firstVowelLoc);
-                                    words[i] = words[i].Remove(0, firstVowelLoc);
-                                    words[i] = words[i] + moveLetters;
-                                }
+                                firstVowelLoc = words[i].IndexOf(v);
+                                moveLetters = words[i].Substring(0, firstVowelLoc);
+                                words[i] = words[i].Remove(0, firstVowelLoc);
+                                words[i] = words[i] + moveLetters;
                             }
-                            words[i] = words[i] + "ay";
-                            words[i] = MoveEndPunctuation(words[i]);
-                        }    
-                    }
-                }                
+                        }
+                        words[i] = words[i] + "ay";
+                        words[i] = MoveEndPunctuation(words[i]);
+                    }                        
+                }
             }
             return string.Join(" ",words);
         }
@@ -113,6 +102,22 @@ namespace L6_EnglishToPigLatinTranslator
             foreach (string n in numschars)
             {
                 if (word.Contains(n))
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        //check if string contains a vowel or consonant
+        public static bool BeginningContains(string[] array, string word)
+        {
+            bool result = false;
+            foreach (string s in array)
+            {
+                //check for words starting with vowel
+                if (word.Substring(0, 1).Contains(s))
                 {
                     result = true;
                     break;
