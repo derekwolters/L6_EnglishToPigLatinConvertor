@@ -1,4 +1,12 @@
 ﻿using System;
+///-----------------------------------------------------------------------------
+///   Namespace:    L6_L6_EnglishToPigLatinTranslator
+///   Description:  Translate a word or phrase to Pig Latin
+///   Author:       Derek Wolters                
+///   Date:         3.31.17
+///   Revision History:
+///   Name:           Date:        Description:
+///-----------------------------------------------------------------------------
 
 namespace L6_EnglishToPigLatinTranslator
 {
@@ -16,7 +24,7 @@ namespace L6_EnglishToPigLatinTranslator
         static string[] numschars =
         {
                 "0" , "1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" ,
-                "$" , "+" , "@" , "-" , "*" , "/", "\\"
+                "$" , "+" , "@" , "-" , "*" , "/", "\\" , "#"
             };
 
         static string[] punctuation = {"." , "!" , "?" , ":" , ";"};
@@ -68,55 +76,50 @@ namespace L6_EnglishToPigLatinTranslator
             //loop though array of words
             for (int i = 0; i < words.Length; i++)
             {
-                if (!ContainsNumChar(words[i]))
+                //check for numbers or special characters
+                if (Contains(numschars, words[i]) == 0)
                 {
+                    //check for vowels and modify accordingly
                     if (BeginningContains(vowels, words[i]))
                     {
                         words[i] = words[i] + "way";
-                        words[i] = MoveEndPunctuation(words[i]);
                     }
+                    //check for consonants and modify accordingly
                     else if (BeginningContains(consonants, words[i]))
                     {
-                        foreach (string v in vowels)
-                        {
-                            if (words[i].Contains(v))
-                            {
-                                firstVowelLoc = words[i].IndexOf(v);
-                                moveLetters = words[i].Substring(0, firstVowelLoc);
-                                words[i] = words[i].Remove(0, firstVowelLoc);
-                                words[i] = words[i] + moveLetters;
-                            }
-                        }
+                        firstVowelLoc = Contains(vowels, words[i]);                        
+                        moveLetters = words[i].Substring(0, firstVowelLoc);
+                        words[i] = words[i].Remove(0, firstVowelLoc);
+                        words[i] = words[i] + moveLetters;                        
                         words[i] = words[i] + "ay";
-                        words[i] = MoveEndPunctuation(words[i]);
-                    }                        
+                    }
+                    words[i] = MoveEndPunctuation(words[i]);
                 }
             }
             return string.Join(" ",words);
         }
 
-        //check if string contains a number or special character
-        public static bool ContainsNumChar(string word)
+        //check if string has a character from an array and returns its index
+        public static int Contains(string[] array, string word)
         {
-            bool result = false;
-            foreach (string n in numschars)
+            int result = 0;
+            foreach (string s in array)
             {
-                if (word.Contains(n))
+                if (word.Contains(s))
                 {
-                    result = true;
+                    result = word.IndexOf(s);
                     break;
                 }
             }
             return result;
         }
 
-        //check if string contains a vowel or consonant
+        //check if string hA a character from an array
         public static bool BeginningContains(string[] array, string word)
         {
             bool result = false;
             foreach (string s in array)
             {
-                //check for words starting with vowel
                 if (word.Substring(0, 1).Contains(s))
                 {
                     result = true;
