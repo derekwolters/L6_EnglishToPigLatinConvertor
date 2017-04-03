@@ -27,16 +27,11 @@ namespace L6_EnglishToPigLatinTranslator
             bool keepGoing = true;
 
             Console.WriteLine("Let's play with Pig Latin!");
-            //Console.WriteLine("Enter a word or phase:");
 
             while (keepGoing)
             {
-                //generate random number
-
-                //get input, calculate and display the results
-                Console.WriteLine(ConvertInput(GetInput()));
-
-                
+                //get input, convert and display the results
+                Console.WriteLine(TranslateInput(GetInput()));                
 
                 //exit program               
                 if (ExitProgram())
@@ -62,27 +57,27 @@ namespace L6_EnglishToPigLatinTranslator
             }
             else { return input; }
         }
-
-        public static string ConvertInput(string phrase)
+        
+        //translate input to Pig Latin
+        public static string TranslateInput(string phrase)
         {
             string[] words = phrase.Split(' ');
             int firstVowelLoc = 0;
             string moveLetters = "";
 
-            //check if words contain a number or character
+            //loop though array of words
             for (int i = 0; i < words.Length; i++)
-            {
-                               
-                
-                
-                
-                //check if words contain a number or character
+            {   
+                //check if words contain a number or special character
                 foreach (string n in numschars)
                 {                    
                     if (words[i].Contains(n))
                     {
-                        i++;
-                        continue;
+                        if (i < words.Length -1)
+                        {
+                            i++;
+                            continue;
+                        }
                     }
                 }
 
@@ -93,8 +88,6 @@ namespace L6_EnglishToPigLatinTranslator
                     if (words[i].Substring(0, 1).Contains(v))
                     {
                         words[i] = words[i] + "way";
-
-                       // words[i] = MoveEndPunctuation(words[i]);
                     }
                     else
                     {
@@ -117,16 +110,15 @@ namespace L6_EnglishToPigLatinTranslator
                                 words[i] = words[i] + moveLetters;
                             }
                         }
-                        words[i] = words[i] + "ay";
-
-                        
+                        words[i] = words[i] + "ay";                        
                     }        
                 }
                 words[i] = MoveEndPunctuation(words[i]);
             }
             return string.Join(" ",words);
         }
-
+        
+        //keep the end punctuation at the end of the word
         public static string MoveEndPunctuation(string checkWord)
         {
             int punctLoc = 0;
